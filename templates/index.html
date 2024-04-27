@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="/templates/style.css" />
+	<title>Puissance 4</title>
+</head>
+<body>
+<h1>Puissance 4</h1>
+<p>Bienvenue dans le jeu Puissance 4 ! Préparez-vous à défier un autre joueur.</p>
+
+<!-- Formulaire de configuration du jeu -->
+<form>
+	<label for="rows">Lignes :</label>
+	<input type="number" id="rows" value="6" name="rows" min="4" />
+	<label for="columns">Colonnes :</label>
+	<input type="number" id="columns" value="7" name="columns" min="4" />
+	<button type="button" id="setup">Configurer le jeu</button>
+</form>
+
+
+<div class="buttons"></div>
+<div id="table"></div>
+<script src="/templates/script.js"></script>
+</body>
+</html>
