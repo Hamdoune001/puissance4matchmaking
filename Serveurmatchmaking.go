@@ -34,11 +34,35 @@ type Game struct {
 
 // DbConn établit la connexion à la base de données
 func DbConn() (db *sql.DB) {
-	db, err := sql.Open("sqlite3", "puissance4.sqlite")
+	db, err := sql.Open("sqlite3", "C:/Users/User/Desktop/bil pro/puissance4matchmaking/puissance4.sqlite")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Erreur lors de la connexion à la base de données :", err)
 	}
+
+	defer db.Close()
 	return db
+}
+
+// Ajouter un joueur dans la base de données
+func AddPlayer(username, password string) error {
+	// Ouvrir la connexion à la base de données
+	db := DbConn()
+	defer db.Close()
+
+	// Préparer la requête d'insertion
+	stmt, err := db.Prepare("INSERT INTO players(username, password) VALUES(?, ?)")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	// Exécuter la requête d'insertion avec les valeurs fournies
+	_, err = stmt.Exec(username, password)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // HandleAddPlayer gère la requête pour ajouter un joueur à la base de données
@@ -86,7 +110,7 @@ func HandleAddGame(w http.ResponseWriter, r *http.Request) {
 }
 func UserHandler(w http.ResponseWriter, r *http.Request) {
 
-	tmpl, err := template.ParseFiles("templates/debut.html")
+	tmpl, err := template.ParseFiles("templates/login.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -103,5 +127,8 @@ func main() {
 	http.HandleFunc("/addplayer", HandleAddPlayer)
 	http.HandleFunc("/addgame", HandleAddGame)
 	http.HandleFunc("/", UserHandler)
+	http.HandleFunc("/register", HandleRegister)
+	http.HandleFunc("/index", index)
+	http.HandleFunc("/login", HandleLogin)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
