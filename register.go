@@ -25,7 +25,7 @@ type RegisterData struct {
 }
 
 func HandleRegister(w http.ResponseWriter, r *http.Request) {
-	db, err := sql.Open("sqlite3", "database.sqlite")
+	db, err := sql.Open("sqlite3", "puissance4.sqlite")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -56,7 +56,7 @@ func HandleRegister(w http.ResponseWriter, r *http.Request) {
 				ErrorMessage:     "Le nom d'utilisateur est déjà pris",
 				ErrorEmail:       "L'email est déjà pris",
 			}
-			tmpl, err := template.ParseFiles("templates/html/Connexion/register.html")
+			tmpl, err := template.ParseFiles("templates/index.html")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return

@@ -34,7 +34,7 @@ type Game struct {
 
 // DbConn établit la connexion à la base de données
 func DbConn() (db *sql.DB) {
-	db, err := sql.Open("sqlite3", "C:/Users/User/Desktop/bil pro/puissance4matchmaking/puissance4.sqlite")
+	db, err := sql.Open("sqlite3", "puissance4.sqlite")
 	if err != nil {
 		log.Fatal("Erreur lors de la connexion à la base de données :", err)
 	}

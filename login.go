@@ -28,7 +28,7 @@ func compareHash(password, hash string) bool {
 	return err == nil
 }
 func HandleLogin(w http.ResponseWriter, r *http.Request) {
-	db, err := sql.Open("sqlite3", "database.sqlite")
+	db, err := sql.Open("sqlite3", "puissance4.sqlite")
 	if err != nil {
 	}
 	defer db.Close()
